@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loan Management System</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <div id="loginView" class="center-screen">
+    <div class="auth-shell auth-shell-wide">
+      <div class="auth-visual">
+        <div class="brand-mark">💰</div>
+        <h1>Secure Loan Management</h1>
+        <p>Create an owner account, sign in safely, and protect business records from the start.</p>
+      </div>
+      <div class="card auth-card">
+        <p class="eyebrow">Account Access</p>
+        <h2 id="authTitle">Sign in securely</h2>
+        <p class="muted" id="authSubtitle">Use your email and password to access the lender dashboard.</p>
+
+        <div class="auth-switch">
+          <button type="button" class="auth-tab active" data-auth="login">Login</button>
+          <button type="button" class="auth-tab" data-auth="register">Create account</button>
+        </div>
+
+        <form id="loginForm" class="stack gap-md auth-mode active" data-auth-panel="login">
+          <label>
+            Email or username
+            <input type="text" id="username" placeholder="admin@example.com" required />
+          </label>
+          <label>
+            Password
+            <input type="password" id="password" placeholder="Enter password" required />
+          </label>
+          <button type="submit">Log In</button>
+          <button type="button" id="googleLoginBtn" class="google-btn">Continue with Google</button>
+          <button type="button" id="showForgotBtn" class="link-btn">Forgot password?</button>
+        </form>
+
+        <form id="registerForm" class="stack gap-md auth-mode" data-auth-panel="register">
+          <label>
+            Full name
+            <input type="text" id="registerName" placeholder="Business owner name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" id="registerEmail" placeholder="name@example.com" required />
+          </label>
+          <label>
+            Password
+            <input type="password" id="registerPassword" placeholder="At least 6 characters" minlength="6" required />
+          </label>
+          <button type="submit">Create Account</button>
+          <button type="button" id="googleRegisterBtn" class="google-btn">Continue with Google</button>
+        </form>
+
+        <form id="forgotForm" class="stack gap-md auth-mode" data-auth-panel="forgot">
+          <label>
+            Account email
+            <input type="email" id="forgotEmail" placeholder="name@example.com" required />
+          </label>
+          <button type="submit">Get Reset Code</button>
+          <button type="button" id="backToLoginBtn" class="link-btn">Back to login</button>
+        </form>
+
+        <form id="resetForm" class="stack gap-md auth-mode" data-auth-panel="reset">
+          <label>
+            Email
+            <input type="email" id="resetEmail" placeholder="name@example.com" required />
+          </label>
+          <label>
+            Reset code
+            <input type="text" id="resetCode" placeholder="6-digit code" required />
+          </label>
+          <label>
+            New password
+            <input type="password" id="resetPassword" placeholder="New password" minlength="6" required />
+          </label>
+          <button type="submit">Reset Password</button>
+          <button type="button" id="resetBackBtn" class="link-btn">Back to login</button>
+        </form>
+
+        <div id="googleButtonMount" class="google-mount"></div>
+        <p class="small-note">Default test login: admin@example.com / admin123</p>
+        <p id="authInfo" class="info"></p>
+        <p id="loginError" class="error"></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="appView" class="hidden app-shell">
+    <aside class="sidebar">
+      <div class="logo-row">
+        <div class="logo-icon">💰</div>
+        <div>
+          <h2>LoanPro</h2>
+          <p>Loan Management</p>
+        </div>
+      </div>
+
+      <nav class="tabs">
+        <button class="tab active" data-tab="dashboard">📊 <span>Dashboard</span></button>
+        <button class="tab" data-tab="clients">👥 <span>Clients</span></button>
+        <button class="tab" data-tab="loans">💳 <span>Loans</span></button>
+        <button class="tab" data-tab="repayments">💵 <span>Repayments</span></button>
+        <button class="tab" data-tab="collateral">🔐 <span>Collateral</span></button>
+        <button class="tab" data-tab="company">🏢 <span>Company</span></button>
+      </nav>
+
+      <div class="sidebar-card">
+        <div class="plant-coins">🌱</div>
+        <h3>Grow smarter</h3>
+        <p>Keep every loan record safe and easy to find.</p>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="topbar-content">
+          <p class="eyebrow">Secure small-scale lending</p>
+          <h1>Loan Management Dashboard</h1>
+          <p class="muted">Phone and laptop friendly MVP for clients, loans, repayments and collateral.</p>
+        </div>
+        <div class="topbar-actions">
+          <span id="welcomeUser" class="badge"></span>
+          <button id="logoutBtn" class="secondary">Logout</button>
+        </div>
+      </header>
+
+      <main class="container">
+        <section id="dashboard" class="tab-panel active">
+          <div class="grid stats-grid">
+            <div class="card stat stat-blue"><div class="stat-icon">👥</div><h3>Total Clients</h3><p id="totalClients">0</p></div>
+            <div class="card stat stat-green"><div class="stat-icon">💼</div><h3>Active Loans</h3><p id="activeLoans">0</p></div>
+            <div class="card stat stat-red"><div class="stat-icon">⏰</div><h3>Overdue Loans</h3><p id="overdueLoans">0</p></div>
+            <div class="card stat stat-purple"><div class="stat-icon">✅</div><h3>Paid Loans</h3><p id="paidLoans">0</p></div>
+            <div class="card stat stat-orange"><div class="stat-icon">💰</div><h3>Outstanding</h3><p id="totalOutstanding">0</p></div>
+            <div class="card stat stat-teal"><div class="stat-icon">📥</div><h3>Repayments Today</h3><p id="repaymentsToday">0</p></div>
+          </div>
+        </section>
+
+        <section id="clients" class="tab-panel">
+          <div class="split">
+            <div class="card form-card">
+              <h3>👥 Add Client</h3>
+              <form id="clientForm" class="stack gap-sm">
+                <input type="text" id="clientName" placeholder="Full name" required />
+                <input type="text" id="clientPhone" placeholder="Phone number" required />
+                <textarea id="clientAddress" placeholder="Address"></textarea>
+                <button type="submit">Save Client</button>
+              </form>
+            </div>
+            <div class="card list-card">
+              <h3>Client List</h3>
+              <div class="table-wrap"><table><thead><tr><th>Name</th><th>Phone</th><th>Address</th></tr></thead><tbody id="clientsTable"></tbody></table></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="loans" class="tab-panel">
+          <div class="split">
+            <div class="card form-card">
+              <h3>💳 Issue Loan</h3>
+              <form id="loanForm" class="stack gap-sm">
+                <select id="loanClient" required></select>
+                <input type="number" id="loanPrincipal" placeholder="Principal" min="1" step="0.01" required />
+                <input type="number" id="loanInterestRate" placeholder="Interest rate %" min="0" step="0.01" required />
+                <select id="loanRepaymentPlan" required>
+                  <option value="">Repayment plan</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="semesterly">Semesterly</option>
+                </select>
+                <label>Date issued <input type="date" id="loanDateIssued" required /></label>
+                <label>Due date <input type="date" id="loanDueDate" required /></label>
+                <textarea id="loanNotes" placeholder="Notes"></textarea>
+                <button type="submit">Save Loan</button>
+              </form>
+            </div>
+            <div class="card list-card">
+              <h3>Loan List</h3>
+              <div class="table-wrap"><table><thead><tr><th>Client</th><th>Principal</th><th>Total</th><th>Balance</th><th>Status</th><th>Due</th></tr></thead><tbody id="loansTable"></tbody></table></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="repayments" class="tab-panel">
+          <div class="split">
+            <div class="card form-card">
+              <h3>💵 Record Repayment</h3>
+              <form id="repaymentForm" class="stack gap-sm">
+                <select id="repaymentLoan" required></select>
+                <input type="number" id="repaymentAmount" placeholder="Amount paid" min="1" step="0.01" required />
+                <select id="repaymentMethod" required>
+                  <option value="">Payment method</option>
+                  <option value="cash">Cash</option>
+                  <option value="mobile money">Mobile Money</option>
+                  <option value="bank transfer">Bank Transfer</option>
+                </select>
+                <label>Payment date <input type="date" id="repaymentDate" required /></label>
+                <textarea id="repaymentNotes" placeholder="Notes"></textarea>
+                <button type="submit">Save Repayment</button>
+              </form>
+            </div>
+            <div class="card list-card">
+              <h3>Repayment History</h3>
+              <div class="table-wrap"><table><thead><tr><th>Client</th><th>Loan ID</th><th>Amount</th><th>Method</th><th>Date</th></tr></thead><tbody id="repaymentsTable"></tbody></table></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="collateral" class="tab-panel">
+          <div class="split">
+            <div class="card form-card">
+              <h3>🔐 Add Collateral</h3>
+              <form id="collateralForm" class="stack gap-sm">
+                <select id="collateralClient" required></select>
+                <input type="text" id="collateralItem" placeholder="Item name" required />
+                <input type="number" id="collateralValue" placeholder="Estimated value" min="1" step="0.01" required />
+                <input type="text" id="collateralCondition" placeholder="Condition notes" />
+                <label>Received date <input type="date" id="collateralDate" required /></label>
+                <select id="collateralStatus">
+                  <option value="held">Held</option>
+                  <option value="released">Released</option>
+                </select>
+                <button type="submit">Save Collateral</button>
+              </form>
+            </div>
+            <div class="card list-card">
+              <h3>Collateral List</h3>
+              <div class="table-wrap"><table><thead><tr><th>Client</th><th>Item</th><th>Value</th><th>Status</th></tr></thead><tbody id="collateralTable"></tbody></table></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="company" class="tab-panel">
+          <div class="card form-card wide-card">
+            <h3>🏢 Company Details</h3>
+            <form id="companyForm" class="stack gap-sm two-col">
+              <input type="text" id="companyName" placeholder="Business name" required />
+              <input type="text" id="companyPhone" placeholder="Phone number" />
+              <input type="email" id="companyEmail" placeholder="Email" />
+              <input type="text" id="companyLocation" placeholder="Location" />
+              <textarea id="companyDescription" placeholder="Description"></textarea>
+              <textarea id="companyTerms" placeholder="Repayment terms"></textarea>
+              <textarea id="companyInstructions" placeholder="Payment instructions"></textarea>
+              <button type="submit">Save Company Details</button>
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="/app.js"></script>
+</body>
+</html>

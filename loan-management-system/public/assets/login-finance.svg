@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 620" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#071b38"/><stop offset="1" stop-color="#183b72"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fde68a"/><stop offset="1" stop-color="#f59e0b"/></linearGradient>
+  </defs>
+  <rect width="420" height="620" fill="url(#bg)"/>
+  <circle cx="350" cy="85" r="120" fill="#2563eb" opacity="0.2"/>
+  <circle cx="60" cy="550" r="140" fill="#22c55e" opacity="0.15"/>
+  <path d="M0 420 C92 355 145 455 245 390 C338 331 385 355 420 330 L420 620 L0 620Z" fill="#ffffff" opacity="0.08"/>
+  <g transform="translate(70 132)">
+    <rect x="20" y="0" width="240" height="320" rx="28" fill="#ffffff" opacity="0.12"/>
+    <rect x="52" y="42" width="176" height="44" rx="12" fill="#ffffff" opacity="0.20"/>
+    <rect x="52" y="110" width="176" height="18" rx="9" fill="#dbeafe" opacity="0.38"/>
+    <rect x="52" y="146" width="132" height="18" rx="9" fill="#dbeafe" opacity="0.26"/>
+    <g transform="translate(64 200)">
+      <ellipse cx="80" cy="85" rx="95" ry="22" fill="#000" opacity="0.12"/>
+      <rect x="10" y="60" width="150" height="26" rx="13" fill="url(#gold)"/>
+      <rect x="30" y="36" width="150" height="26" rx="13" fill="#fbbf24"/>
+      <rect x="0" y="12" width="150" height="26" rx="13" fill="url(#gold)"/>
+      <path d="M95 9 C95 -38 133 -47 152 -76 C174 -36 155 -14 126 -5 C163 1 180 31 181 60 C145 44 118 39 95 60 Z" fill="#22c55e"/>
+      <path d="M96 59 C103 34 117 8 151 -76" stroke="#166534" stroke-width="5" fill="none" opacity="0.55"/>
+    </g>
+  </g>
+  <text x="48" y="82" fill="#ffffff" font-family="Arial" font-size="30" font-weight="700">Secure lending</text>
+  <text x="48" y="115" fill="#bfdbfe" font-family="Arial" font-size="16">Track clients, loans and repayments</text>
+</svg>

@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "nextIds": {
+      "users": 2,
+      "clients": 1,
+      "loans": 1,
+      "repayments": 1,
+      "collateral": 1,
+      "company": 2
+    }
+  },
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password_hash": "$2a$10$d2MfCsXxsRnXyE7riKIBKeSyPhiBCC1qS3fj6JXq63IlJ9AytWx6e",
+      "created_at": "2026-04-14T12:18:50.063Z",
+      "email": "admin@example.com",
+      "provider": "local"
+    }
+  ],
+  "clients": [],
+  "loans": [],
+  "repayments": [],
+  "collateral": [],
+  "company": [
+    {
+      "id": 1,
+      "business_name": "Campus Loan Services",
+      "phone": "+256700000000",
+      "email": "info@example.com",
+      "location": "Mbarara University",
+      "description": "Small student-focused lending business.",
+      "repayment_terms": "Loan repayment must follow agreed timelines to avoid collateral action.",
+      "payment_instructions": "Pay by cash or mobile money and request a confirmation receipt.",
+      "updated_at": "2026-04-14T12:18:50.064Z"
+    }
+  ],
+  "password_resets": []
+}
